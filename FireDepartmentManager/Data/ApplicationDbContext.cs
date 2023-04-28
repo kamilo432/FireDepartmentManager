@@ -29,7 +29,6 @@ namespace FireDepartmentManager.Data
                 Id = Guid.NewGuid().ToString(),
             };
 
-
             builder.Entity<IdentityRole>().HasData(
                   new IdentityRole { Id = adminRole.Id, Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = Guid.NewGuid().ToString() },
                   new IdentityRole { Id = userRole.Id, Name = "User", NormalizedName = "USER", ConcurrencyStamp = Guid.NewGuid().ToString() }
