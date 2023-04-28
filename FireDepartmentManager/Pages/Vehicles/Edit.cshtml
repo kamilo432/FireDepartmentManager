@@ -1,0 +1,53 @@
+﻿@page
+@using FireDepartmentManager.Models
+@model FireDepartmentManager.Pages.Vehicles.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@if (User.IsInRole("Admin"))
+{
+    <body class="bg-dark">
+        <h1>Edit vehicle</h1>
+        <h4>Number: @Html.DisplayFor(modelItem => Model.Vehicle.Name)</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Vehicle.Id" />
+                    <div class="form-group">
+                        <label asp-for="Vehicle.Name" class="control-label"></label>
+                        <input asp-for="Vehicle.Name" class="form-control" />
+                        <span asp-validation-for="Vehicle.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.TypeOfVehicle" class="control-label"></label>
+                        <select asp-for="Vehicle.TypeOfVehicle" asp-items="Html.GetEnumSelectList<TypeOfVehicle>()" class="form-control">
+                            <option selected="selected" value="">Select type</option>
+                        </select>
+                        <span asp-validation-for="Vehicle.TypeOfVehicle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.NumberOfSeats" class="control-label"></label>
+                        <input asp-for="Vehicle.NumberOfSeats" class="form-control" />
+                        <span asp-validation-for="Vehicle.NumberOfSeats" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.AutoPump" class="control-label"></label>
+                        <input asp-for="Vehicle.AutoPump" class="form-control" />
+                        <span asp-validation-for="Vehicle.AutoPump" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-top:5px">
+                        <input type="submit" value="Save" class="btn btn-primary"/>
+                        <a asp-page="./Index" class="btn btn-info">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

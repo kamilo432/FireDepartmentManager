@@ -1,0 +1,108 @@
+﻿@page
+@using FireDepartmentManager.Models
+@using FireDepartmentManager.Pages.Actions
+@using FireDepartmentManager.Data
+@model FireDepartmentManager.Pages.Actions.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    var firefighters = ViewData["FireFighters"] as List<FireFighter> ?? new List<FireFighter>();
+    var vehicles = ViewData["Vehicles"] as List<Vehicle> ?? new List<Vehicle>();
+    List<string> rescuers = new List<string>();
+}
+@if (User.IsInRole("Admin"))
+{
+    <body class="bg-dark">
+        <h1>Create action</h1>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Action.Number" class="control-label"></label>
+                        <input asp-for="Action.Number" class="form-control" />
+                        <span asp-validation-for="Action.Number" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Action.Vehicle" class="control-label"></label>
+                        <select asp-for="Action.Vehicle" class="form-control">
+                            <option value="">Choose vehicle</option>
+                            @foreach (var vehicle in vehicles)
+                            {
+                                <option value="@vehicle.Name (@vehicle.TypeOfVehicle)">@vehicle.Name (@vehicle.TypeOfVehicle)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Action.Vehicle" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Action.Driver" class="control-label"></label>
+                        <select asp-for="Action.Driver" class="form-control">
+                            <option value="">Choose driver</option>
+                            @foreach (var firefighter in firefighters)
+                            {
+                                @if (firefighter.Driver == true)
+                                {
+                                    <option value="@firefighter.Name @firefighter.Surname">@firefighter.Name @firefighter.Surname</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="Action.Driver" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Action.Commander" class="control-label"></label>
+                        <select asp-for="Action.Commander" class="form-control">
+                            <option value="">Choose commander</option>
+                            @foreach (var firefighter in firefighters)
+                            {
+                                @if (firefighter.Commander == true)
+                                {
+                                    <option value="@firefighter.Name @firefighter.Surname">@firefighter.Name @firefighter.Surname</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="Action.Commander" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Action.Rescuers" class="control-label"></label>
+                        <select asp-for="Action.Rescuers" class="form-control" multiple>
+                            <option value="">Choose rescuers</option>
+                            @foreach (var firefighter in firefighters)
+                            {
+                                <option value="@firefighter.Name @firefighter.Surname">@firefighter.Name @firefighter.Surname</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Action.Rescuers" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Action.TypeOfAction" class="control-label"></label>
+                        <select asp-for="Action.TypeOfAction" asp-items="Html.GetEnumSelectList<TypeOfAction>()" class="form-control">
+                            <option selected="selected" value="">Please select</option>
+                        </select>
+                        <span asp-validation-for="Action.TypeOfAction" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Action.DateOfAlarm" class="control-label"></label>
+                        <input asp-for="Action.DateOfAlarm" class="form-control" />
+                        <span asp-validation-for="Action.DateOfAlarm" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Action.DateOfActionEnd" class="control-label"></label>
+                        <input asp-for="Action.DateOfActionEnd" class="form-control" />
+                        <span asp-validation-for="Action.DateOfActionEnd" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-top:5px">
+                        <input type="submit" value="Create" class="btn btn-primary"/>
+                        <a asp-page="Index" class="btn btn-info">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

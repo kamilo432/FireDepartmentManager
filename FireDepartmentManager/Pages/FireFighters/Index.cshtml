@@ -1,0 +1,60 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using FireDepartmentManager.Models
+@using Microsoft.AspNetCore.Authorization 
+@model FireDepartmentManager.Pages.FireFighters.IndexModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@if (Model.FireFighter.Count == 0) 
+{
+    @if (User.IsInRole("Admin"))
+    {
+        Response.Redirect("/FireFighters/Create");
+    }
+    else
+    {
+        <script>
+            alert("Nothing to see there");
+            window.location.href = "/Index";
+        </script>
+    }}
+else
+{
+    <body class="bg-dark">
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+                <a asp-page="Create" class="btn btn-success">Create New</a>
+            </p>   
+        }
+        <div class="row">
+            @foreach (var item in Model.FireFighter)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name) @Html.DisplayFor(modelItem => item.Surname)</h5>
+                            <p class="card-text">
+                                First AID: @Html.DisplayFor(modelItem => item.FirstAID)<br />
+                                Commander: @Html.DisplayFor(modelItem => item.Commander)<br />
+                                Driver: @Html.DisplayFor(modelItem => item.Driver)<br />
+                                Date of course completion: @Html.DisplayFor(modelItem => item.DateOfCourseCompletion)
+                            </p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Page("./Edit", new { id = item.Id })" class="btn btn-secondary">Edit</a>
+                                <a href="@Url.Page("./Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </body>
+}

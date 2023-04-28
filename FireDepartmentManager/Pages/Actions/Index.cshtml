@@ -1,0 +1,60 @@
+﻿@page
+@using FireDepartmentManager.Models
+@model FireDepartmentManager.Pages.Actions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@if (Model.Action.Count == 0) 
+{
+    @if (User.IsInRole("Admin"))
+    {
+        Response.Redirect("/Actions/Create");
+    }
+    else
+    {
+        <script>
+            alert("Nothing to see there");
+            window.location.href = "/Index";
+        </script>
+    }
+}
+else
+{
+    <body class="bg-dark">
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+                <a asp-page="Create" class="btn btn-success">Create New</a>
+            </p>
+        }
+        <div class="row">
+            @foreach (var item in Model.Action)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Number)</h5>
+                            <p class="card-text">
+                                Type of action: @Html.DisplayFor(modelItem => item.TypeOfAction)<br />
+                                Vehicle: @Html.DisplayFor(modelItem => item.Vehicle)<br />
+                                Commander: @Html.DisplayFor(modelItem => item.Commander)<br />
+                                Driver: @Html.DisplayFor(modelItem => item.Driver)<br />
+                                Rescuers: @Html.DisplayFor(modelItem => item.Rescuers)<br />
+                                Date of alarm: @Html.DisplayFor(modelItem => item.DateOfAlarm)<br />
+                                Date of action end: @Html.DisplayFor(modelItem => item.DateOfActionEnd)<br />
+                            </p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Page("./Edit", new { id = item.Id })" class="btn btn-secondary">Edit</a>
+                                <a href="@Url.Page("./Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </body>
+}

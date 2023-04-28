@@ -1,0 +1,64 @@
+﻿@page
+@model FireDepartmentManager.Pages.Vehicles.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@if (Model.Vehicle.Count == 0) 
+{
+    @if (User.IsInRole("Admin"))
+    {
+        Response.Redirect("/Vehicles/Create");
+    }
+    else
+    {
+        <script>
+            alert("Nothing to see there");
+            window.location.href = "/Index";
+        </script>
+    }}
+else
+{
+    <body class="bg-dark">
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+                <a asp-page="Create" class="btn btn-success">Create New</a>
+            </p>
+        }
+        <div class="row">
+            @foreach (var item in Model.Vehicle)
+            {
+                <div class="col-md-4" >
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.TypeOfVehicle)</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Number of seats: @Html.DisplayFor(modelItem => item.NumberOfSeats)<br />
+                            Auto pump: @if (item.AutoPump != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.AutoPump)
+                            }
+                            else
+                            {
+                                @Html.Raw("None")
+                            }
+                        <br/>
+                    </p>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="@Url.Page("./Edit", new { id = item.Id })" class="btn btn-secondary">Edit</a>
+                        <a href="@Url.Page("./Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
+                    }
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </body>
+}

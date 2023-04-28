@@ -1,0 +1,63 @@
+﻿@page
+@using FireDepartmentManager.Models
+@model FireDepartmentManager.Pages.FireFighters.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <body class="bg-dark">
+
+        <h1>Edit firefighter</h1>
+
+        <h4>@Html.DisplayFor(modelItem => Model.FireFighter.Name) @Html.DisplayFor(modelItem => Model.FireFighter.Surname)</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="FireFighter.Id" />
+                    <div class="form-group">
+                        <label asp-for="FireFighter.Name" class="control-label"></label>
+                        <input asp-for="FireFighter.Name" class="form-control" />
+                        <span asp-validation-for="FireFighter.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FireFighter.Surname" class="control-label"></label>
+                        <input asp-for="FireFighter.Surname" class="form-control" />
+                        <span asp-validation-for="FireFighter.Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="FireFighter.FirstAID" /> @Html.DisplayNameFor(model => model.FireFighter.FirstAID)
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="FireFighter.Commander" /> @Html.DisplayNameFor(model => model.FireFighter.Commander)
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="FireFighter.Driver" /> @Html.DisplayNameFor(model => model.FireFighter.Driver)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FireFighter.DateOfCourseCompletion" class="control-label"></label>
+                        <input asp-for="FireFighter.DateOfCourseCompletion" class="form-control" />
+                        <span asp-validation-for="FireFighter.DateOfCourseCompletion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-top:5px">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a asp-page="./Index" class="btn btn-info">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

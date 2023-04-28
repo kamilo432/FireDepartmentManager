@@ -1,0 +1,45 @@
+﻿@page
+@model LoginWithRecoveryCodeModel
+@{
+    ViewData["Title"] = "Two-factor authentication (2FA)";
+}
+
+<body class="bg-dark">
+    <div class="container py-5 bg-dark">
+        <div class="mb-lg-5">
+            <div class="col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-success mb-2">@ViewData["Title"]</p>
+            <h2 class="fw-bold">Recovery code verification</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column align-items-center bg-dark">
+                        <p>    
+                            You have requested to log in with a recovery code. This login will not be remembered until you provide
+                            an authenticator app code at log in or disable 2FA and log in again.
+                        </p>
+                        <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                            <div>
+                                <input asp-for="Input.RecoveryCode" class="form-control col-xl-6" autocomplete="off" placeholder="Please enter code." />
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="card-footer text-center d-flex flex-column align-items-center bg-dark">
+                        <button type="submit" class="col-7 btn btn-lg btn-primary btn-">Log in</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
