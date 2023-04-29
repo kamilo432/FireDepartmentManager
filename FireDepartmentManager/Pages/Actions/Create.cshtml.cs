@@ -24,6 +24,7 @@ namespace FireDepartmentManager.Pages.Actions
         {
             ViewData["FireFighters"] = _context.FireFighter.ToList();
             ViewData["Vehicles"] = _context.Vehicle.ToList();
+
             return Page();
         }
 
@@ -49,8 +50,6 @@ namespace FireDepartmentManager.Pages.Actions
                     Action.Rescuers = rescuersString;
                 }
             }
-            Action.Number = Request.Form["Action.Number"] + "/" + DateTime.Now.Year.ToString();
-
             _context.Action.Add(Action);
             await _context.SaveChangesAsync();
 

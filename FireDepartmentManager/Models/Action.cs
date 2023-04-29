@@ -7,6 +7,7 @@ namespace FireDepartmentManager.Models
     public class Action
     {
         public int Id { get; set; }
+        [DisplayName("Number/Year")]
         public string? Number { get; set; }
         public string? Commander { get; set; }
         public string? Driver { get; set; }

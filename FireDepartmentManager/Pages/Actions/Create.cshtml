@@ -21,7 +21,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Action.Number" class="control-label"></label>
-                        <input asp-for="Action.Number" class="form-control" />
+                        <input asp-for="Action.Number" class="form-control" value="/@DateTime.Now.Year.ToString()"/> 
                         <span asp-validation-for="Action.Number" class="text-danger"></span>
                     </div>
                     <div>
