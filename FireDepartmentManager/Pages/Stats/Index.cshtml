@@ -1,0 +1,52 @@
+﻿@page
+@using FireDepartmentManager.Models
+@using FireDepartmentManager.Data
+@model FireDepartmentManager.Pages.Stats.IndexModel
+@{
+
+}
+
+<div class="col-md-8 col-xl-6 text-center mx-auto">
+    <p class="fw-bold text-success mb-2">Stats</p>
+    <h2 class="fw-bold">Fire department</h2>
+</div>
+<body class="bg-dark">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">General stats</h5>
+                    <p class="card-text">
+                        Number of Firefighters: @ViewData["NumFirefighters"]<br />
+                        Number of Vehicles: @ViewData["NumVehicles"]<br />
+                        Number of Actions: @ViewData["numActions"]<br />
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Firefighters stats</h5>
+                    <p class="card-text">
+                        Number of Firefighters with first AID: @ViewData["numFirefightersFa"]<br />
+                        Number of Firefighters with driver permission: @ViewData["numFirefightersDriver"]<br />
+                        Number of Firefighters with commander permission: @ViewData["numFirefightersCommander"]<br />
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Actions stats</h5>
+                    <p class="card-text">
+                        Number of fires: @ViewData["numActionFire"]<br />
+                        Number of local dangers: @ViewData["numActionLocalDanger"]<br />
+                        Number of fake alarms: @ViewData["numActionFake"]<br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
